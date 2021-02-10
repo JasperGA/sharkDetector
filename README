@@ -1,1 +1,14 @@
-THIS CONTAINS INTIAL WORK ON CUSTOM YOLO TO DETECT SHARKS
+Summer Research Forum Project: Shark Detector 
+
+Bellow is the relavent sources related to the code for each detection method:
+
+SSIM
+- https://www.cns.nyu.edu/pub/eero/wang03-reprint.pdf
+- https://docs.opencv.org/master/d5/dc4/tutorial_video_input_psnr_ssim.html
+- https://docs.opencv.org/master/dd/d3d/tutorial_gpu_basics_similarity.html
+
+YOLO
+- https://github.com/ultralytics/yolov5
+
+Tracking
+- https://learnopencv.com/object-tracking-using-opencv-cpp-python/
