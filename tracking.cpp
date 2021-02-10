@@ -7,7 +7,7 @@
 using namespace cv;
 using namespace std;
 
-// Convert to string
+// Convert to string for displaying FPS
 #define SSTR( x ) static_cast< std::ostringstream & >( \
 ( std::ostringstream() << std::dec << x ) ).str()
 
@@ -42,10 +42,10 @@ int main(int argc, char **argv)
     // Read video
     VideoCapture video("sharkV_2.mp4");
 
+    // Following is for saving video produced
     int frame_width = video.get(CAP_PROP_FRAME_WIDTH); 
     int frame_height = video.get(CAP_PROP_FRAME_HEIGHT);
     int codec = VideoWriter::fourcc('M', 'J', 'P', 'G'); 
-    
     VideoWriter recor("KCF_Tracker.avi", codec, 20, Size(frame_width,frame_height));
     
     // Exit if video is not opened
@@ -94,19 +94,21 @@ int main(int argc, char **argv)
             //bbox = sharkFind(frame);
         }
         
+        // Experimenting with trying to correct drift and occulsion errors
         /*
         if (i % 10 == 0) 
         {
             bbox = sharkFind(frame);
         }
         */
+
         // Display tracker type on frame
         putText(frame, trackerType + " Tracker", Point(100,20), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50),2);
         
         // Display FPS on frame
         putText(frame, "FPS : " + SSTR(int(fps)), Point(100,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
 
-        // Display frame.
+        // Display and save frame.
         imshow("Tracking", frame);
         recor.write(frame);
 

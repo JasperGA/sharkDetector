@@ -24,11 +24,13 @@ int erosion_size = 5;
 int dilation_size = 3;
 int morph_size = 10;
 
+// Convert to string for displaying FPS
 #define SSTR( x ) static_cast< std::ostringstream & >( \
 ( std::ostringstream() << std::dec << x ) ).str()
 
 int main( int argc, char ** argv )
 {
+    // Load base image in different rotations and get its contour
     Mat up, down, left, right;
     up = imread("shark_out_up.jpeg" , IMREAD_GRAYSCALE);
     threshold( up, up, 200, 255, 0 );
@@ -42,12 +44,13 @@ int main( int argc, char ** argv )
     left = imread("shark_out_left.jpeg" , IMREAD_GRAYSCALE);
     threshold( left, left, 200, 255, 0 );
 
-
+    // Set point to track where shark previosuly was detected ( (0,0) is default )
     Point prev = Point(0, 0);
 
     namedWindow( window_name, WINDOW_AUTOSIZE );
     VideoCapture cap("sharkV_2.mp4");
     
+    // Following is for saving video produced
     int frame_width = cap.get(CAP_PROP_FRAME_WIDTH); 
     int frame_height = cap.get(CAP_PROP_FRAME_HEIGHT);
     int codec = VideoWriter::fourcc('M', 'J', 'P', 'G'); 
@@ -203,7 +206,8 @@ int main( int argc, char ** argv )
         float fps = getTickFrequency() / ((double)getTickCount() - timer);
         putText(src, "FPS : " + SSTR(int(fps)), Point(100,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
         
-        imshow(window_name, src);
+        // Show video and save it
+        imshow(window_name, src);        
         video.write(src);
 
         char key = (char) waitKey(30);
